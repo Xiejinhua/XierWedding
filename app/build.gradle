@@ -3,10 +3,13 @@ plugins {
     id 'kotlin-android'
 }
 apply from: "../app_signed_key/sign.gradle"
+apply plugin: 'kotlin-kapt'//kapt 插件
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
+    dataBinding {
+        enabled true
+    }
     defaultConfig {
         applicationId "com.mazhang.xierwedding"
         minSdkVersion 21

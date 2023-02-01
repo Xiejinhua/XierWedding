@@ -1,31 +1,26 @@
 package com.mazhang.xierwedding
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
-import com.mazhang.xierwedding.Utils.BaseRequestHeader
 import com.mazhang.xierwedding.Utils.DigestUtils
-import com.mazhang.xierwedding.Utils.SignUtil
 import com.mazhang.xierwedding.bean.ParkListBean
+import com.mazhang.xierwedding.databinding.ActivityMainBinding
 import com.mazhang.xierwedding.net.*
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var test: TextView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        test = findViewById(R.id.test)
 
-        test.setOnClickListener {
+        binding.test.setOnClickListener {
             var map: HashMap<String, Any> = HashMap()
-            val headerParams: HashMap<String, Any> = HashMap()
-//            map["lon"] = "114.443236"
-//            map["lat"] = "23.055491"
             map["appId"] = Api().APP_ID
             map["timestamp"] = System.currentTimeMillis().toString()
             map["vechicleSN"] = "7B81100372380640178MC020027"
@@ -34,7 +29,6 @@ class MainActivity : AppCompatActivity() {
                 builder.append(`val`.value)
             }
             map["sign"] = DigestUtils.md5Hex(builder.toString().toByteArray()).toUpperCase()
-//            headerParams["body"] = map
             //链式调用
             RetrofitManager.instance.createService(ApiService::class.java)
                 .login(Api().getEatQuotations, map)
