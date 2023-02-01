@@ -1,0 +1,26 @@
+android {
+    def configFolder = new File(rootProject.rootDir, "app_signed_key")
+    def jksFileSGMW = new File(configFolder, "platform.keystore")
+    def jksFilePathSGMW  = jksFileSGMW.getAbsolutePath()
+    def platform = 'SGMW'
+    if (platform == 'SGMW') {
+        println("SGMWAndroid platform")
+        signingConfigs {
+            release {
+                storeFile file(jksFilePathSGMW)
+                keyAlias 'desaysv'
+                keyPassword 'Aa123456'
+                storePassword 'Aa123456'
+                v2SigningEnabled true
+            }
+            debug {
+                storeFile file(jksFilePathSGMW)
+                keyAlias 'desaysv'
+                keyPassword 'Aa123456'
+                storePassword 'Aa123456'
+                v2SigningEnabled true
+            }
+        }
+    }
+
+}
